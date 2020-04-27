@@ -1,17 +1,9 @@
-EXECUTE msdb.dbo.rds_drop_database  "HAccountsDB"
-EXECUTE msdb.dbo.rds_drop_database  "HPlatformDB"
-EXECUTE msdb.dbo.rds_drop_database  "HTreasureDB"
+-- 从s3恢复数据库备份
+
+EXECUTE msdb.dbo.rds_drop_database  "数据库名"
 
 exec msdb.dbo.rds_restore_database 
-        @restore_db_name='HAccountsDB', 
-        @s3_arn_to_restore_from='arn:aws:s3:::dfyl/temp/HAccountsDB.bak';
+        @restore_db_name='数据库名', 
+        @s3_arn_to_restore_from='s3路径';
 
-exec msdb.dbo.rds_restore_database 
-        @restore_db_name='HPlatformDB', 
-        @s3_arn_to_restore_from='arn:aws:s3:::dfyl/temp/HPlatformDB.bak';
-
-exec msdb.dbo.rds_restore_database 
-        @restore_db_name='HTreasureDB', 
-        @s3_arn_to_restore_from='arn:aws:s3:::dfyl/temp/HTreasureDB.bak';
-
-exec msdb.dbo.rds_task_status @db_name='HTreasureDB';
+exec msdb.dbo.rds_task_status @db_name='数据库名';
