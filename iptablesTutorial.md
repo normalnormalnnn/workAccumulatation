@@ -19,6 +19,6 @@ When you reboot, it will load rules.v4 and rules.v6 rules for iptables.
 
 Forward tcp local port to another host port:\
 ```
-sudo iptables -A PREROUTING -p tcp -m tcp --dport 'localPort' -j DNAT --to-destination 'forwardIP:forwardPort'
-sudo iptables -A POSTROUTING -d 'forwardIP' -p tcp -m tcp --dport 'forwardPort' -j SNAT --to-source 'localIp'
+sudo iptables -t nat -A PREROUTING -p tcp -m tcp --dport 'localPort' -j DNAT --to-destination 'forwardIP:forwardPort'
+sudo iptables -t nat -A POSTROUTING -d 'forwardIP' -p tcp -m tcp --dport 'forwardPort' -j SNAT --to-source 'localIp'
 ```
